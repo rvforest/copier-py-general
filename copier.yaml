@@ -1,0 +1,29 @@
+# questions
+project_name:
+  type: str
+  help: What is your project name?
+  validator: >-
+    {% if not (project_name | regex_search('^[a-z][a-z0-9\-]+$')) %}
+    project_name must start with a letter, followed one or more letters, digits or dashes all lowercase.
+    {% endif %}
+
+description:
+  type: str
+  help: Enter the project's description
+
+user_name:
+  type: str
+  help: What is the author's name?
+  default: "{{ environ.get('GIT_AUTHOR_NAME', '') }}"
+
+user_email:
+  type: str
+  help: What is the author's email address?
+  default: "{{ environ.get('GIT_AUTHOR_EMAIL', '') }}"
+
+py_version:
+  type: str
+  help: What is the minimum Python version for this project?
+  default: 3.13
+
+_subdirectory: template
