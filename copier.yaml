@@ -27,3 +27,7 @@ py_version:
   default: 3.13
 
 _subdirectory: template
+
+_tasks:
+  # Use uv to add dev dependencies so that the latest versions are used.
+  - uv add --dev pytest ruff
