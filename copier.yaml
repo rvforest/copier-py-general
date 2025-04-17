@@ -31,3 +31,4 @@ _subdirectory: template
 _tasks:
   # Use uv to add dev dependencies so that the latest versions are used.
   - uv add --dev pytest ruff nox
+  - git init --initial-branch=main
