@@ -1,16 +1,16 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "versioningit]
 build-backend = "hatchling.build"
 
 [project]
 name = "{{project_name}}"
-version = "0.1.0"
 description = "{{description}}"
 readme = "README.md"
 authors = [
     { name = "{{user_name}}", email = "{{user_email}}" }
 ]
 requires-python = ">={{py_version}}"
+dynamic = ["version"]
 dependencies = []
 
 [dependency-groups]
@@ -18,3 +18,22 @@ dependencies = []
     
 [tool.ruff]
 per-file-ignores = { "__init__.py" = ["F401"] }
+
+[tool.hatch.version]
+source = "versioningit"
+
+[tool.versioningit.vcs]
+method = "git" 
+match = ["v*"]
+default-tag = "0.1.0"
+
+[tool.versioningit.next-version]
+method = "smallest"
+
+[tool.versioningit.format]
+distance = "{next_version}.dev{distance}+{vcs}{rev}"
+dirty = "{base_version}+d{build_date:%Y%m%d}"
+distance-dirty = "{next_version}.dev{distance}+{vcs}{rev}.d{build_date:%Y%m%d}"
+
+[tool.versioningit.template-fields]
+pep440 = true
