@@ -7,8 +7,28 @@ authors = [
     { name = "rvforest@gmail.com", email = "rvforest@gmail.com" }
 ]
 requires-python = ">=3.13"
+dynamic = ["version"]
 dependencies = []
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "versioningit"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "versioningit"
+
+[tool.versioningit.vcs]
+method = "git" 
+match = ["v*"]
+default-tag = "0.1.0"
+
+[tool.versioningit.next-version]
+method = "smallest"
+
+[tool.versioningit.format]
+distance = "{next_version}.dev{distance}+{vcs}{rev}"
+dirty = "{base_version}+d{build_date:%Y%m%d}"
+distance-dirty = "{next_version}.dev{distance}+{vcs}{rev}.d{build_date:%Y%m%d}"
+
+[tool.versioningit.template-fields.version-tuple]
+pep440 = true

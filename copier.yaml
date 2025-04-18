@@ -29,6 +29,12 @@ py_version:
 _subdirectory: template
 
 _tasks:
+  - git init --initial-branch=main
+
+  # Create initial commit with only README so that dynamic version lookup succeeds
+  # Don't commit other files so that developer can modify before adding to repo
+  - git add README.md
+  - git commit -m "Initial commit"
+
   # Use uv to add dev dependencies so that the latest versions are used.
   - uv add --dev pytest ruff nox
-  - git init --initial-branch=main
