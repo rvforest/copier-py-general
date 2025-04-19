@@ -44,7 +44,7 @@ def test(session: nox.Session) -> None:
 
 
 def _install_dev_deps(session: nox.Session) -> None:
-    _run_install(only_dev=True)
+    _run_install(session, only_dev=True)
 
 
 def _install_all_deps(session: nox.Session) -> None:
