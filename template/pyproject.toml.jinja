@@ -14,8 +14,12 @@ dynamic = ["version"]
 dependencies = []
 
 [dependency-groups]
-    dev = []
-    
+dev = [
+    "nox>=2025.2.9",
+    "pytest>=8.3.5",
+    "ruff>=0.11.6",
+]
+
 [tool.ruff]
 per-file-ignores = { "__init__.py" = ["F401"] }
 
