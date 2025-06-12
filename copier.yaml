@@ -45,8 +45,21 @@ py_versions:
     [{% for v in range(py_min_version|replace('.', '')|int, py_max_version|replace('.', '')|int + 1) %}"3.{{ '%d' % (v % 100) }}"{% if not loop.last %}, {% endif %}{% endfor %}]
   when: false  # Hide from prompts, but available for templates
 
+has_cli:
+  type: bool
+  help: Does this package provide a CLI tool?
+  default: false
+
+cli_command:
+  type: str
+  help: What is the CLI command name?
+  default: "{{ project_name }}"
+  when: "{{ has_cli }}"
+
 _subdirectory: template
 
+_exclude:
+  - "{% if not has_cli %}src/{{package_name}}/cli{% endif %}"
 _tasks:
   # Create initial commit with only README so that dynamic version lookup succeeds
   # Don't commit other files so that developer can modify before adding to repo

@@ -11,7 +11,13 @@ authors = [
 ]
 requires-python = ">={{py_version}}"
 dynamic = ["version"]
-dependencies = []
+dependencies = [
+{% if has_cli %}    "typer>=0.9.0",
+{% endif %}]
+
+[project.scripts]
+{% if has_cli %}{{ cli_command }} = "{{ package_name }}.cli.main:app"
+{% endif %}
 
 [dependency-groups]
 dev = [
