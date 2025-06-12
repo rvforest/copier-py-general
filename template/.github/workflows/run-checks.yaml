@@ -12,7 +12,7 @@ env:
   FORCE_COLOR: 1
 
 jobs:
-  uv-example:
+  run-checks:
     name: Run checks
     runs-on: ubuntu-latest
 
