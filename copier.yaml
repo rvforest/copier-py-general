@@ -7,6 +7,12 @@ project_name:
     project_name must start with a letter, followed one or more letters, digits or dashes all lowercase.
     {% endif %}
 
+package_name:
+  type: str
+  help: Name of the package, e.g. my_package (auto-generated)
+  default: "{{ project_name.replace('-', '_') }}"
+  when: false  # Hide from prompts, but available for templates
+
 description:
   type: str
   help: Enter the project's description
