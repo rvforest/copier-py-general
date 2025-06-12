@@ -8,6 +8,8 @@ on:
     branches:
       - main
 
+env:
+  FORCE_COLOR: 1
 
 jobs:
   uv-example:
