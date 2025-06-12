@@ -26,6 +26,13 @@ py_min_version:
   help: What is the minimum Python version for this project? (e.g. 3.9)
   default: 3.13
 
+py_versions:
+  type: yaml
+  help: List of supported Python versions (auto-generated)
+  default: |
+    [{% for v in range(py_min_version|replace('.', '')|int, 314) %}"3.{{ '%d' % (v % 100) }}"{% if not loop.last %}, {% endif %}{% endfor %}]
+  when: false  # Hide from prompts, but available for templates
+
 _subdirectory: template
 
 _tasks:
