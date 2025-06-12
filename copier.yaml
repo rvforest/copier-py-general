@@ -17,6 +17,11 @@ description:
   type: str
   help: Enter the project's description
 
+gh_owner:
+  type: str
+  help: Enter the GitHub owner or organization name
+  default: "{{ environ.get('GITHUB_USER', '') }}"
+
 author:
   type: str
   help: What is the author's name?
