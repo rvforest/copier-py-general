@@ -21,9 +21,9 @@ user_email:
   help: What is the author's email address?
   default: "{{ environ.get('GIT_AUTHOR_EMAIL', '') }}"
 
-py_version:
+py_min_version:
   type: str
-  help: What is the minimum Python version for this project?
+  help: What is the minimum Python version for this project? (e.g. 3.9)
   default: 3.13
 
 _subdirectory: template

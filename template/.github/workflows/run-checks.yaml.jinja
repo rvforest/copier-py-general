@@ -27,3 +27,25 @@ jobs:
 
       - name: Run checks
         run: uv run pre-commit run --all-files --show-diff-on-failure
+
+  run-tests:
+    name: Run tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: {{ py_versions }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: wntrblm/nox@main
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Run tests
+        run: nox -s "coverage-${{ matrix.python-version }}" -- --cov-report=xml -vv
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
