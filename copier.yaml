@@ -56,6 +56,12 @@ cli_command:
   default: "{{ project_name }}"
   when: "{{ has_cli }}"
 
+current_year:
+  type: str
+  help: Current year (auto-generated)
+  default: "{{ now().strftime('%Y') }}"
+  when: false  # Hide from prompts, but available for templates
+
 _subdirectory: template
 
 _exclude:
