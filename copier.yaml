@@ -17,12 +17,12 @@ description:
   type: str
   help: Enter the project's description
 
-user_name:
+author:
   type: str
   help: What is the author's name?
   default: "{{ environ.get('GIT_AUTHOR_NAME', '') }}"
 
-user_email:
+author_email:
   type: str
   help: What is the author's email address?
   default: "{{ environ.get('GIT_AUTHOR_EMAIL', '') }}"
