@@ -1,17 +1,5 @@
-<!--
-<div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/{{ gh_owner }}/{{ project_name }}/main/docs/source/_static/logo/{{ project_name }}-logo-dark.png" width="500">
-<img alt="{{project_name}} Logo" src="https://raw.githubusercontent.com/{{ gh_owner }}/{{ project_name }}/main/docs/source/_static/logo/{{ project_name }}-logo-light.png" width="500">
-  </picture>
-</div>
--->
+# {{ project_name }} documentation
 
-# {{project_name}}
-
-<!--
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/{{ project_name }}.svg)](https://pypi.org/project/{{ project_name }}/)
-[![PyPI - License](https://img.shields.io/pypi/l/{{ project_name }}.svg)](https://pypi.org/project/{{ project_name }}/)
 [![GitHub](https://img.shields.io/badge/GitHub-{{ gh_owner }}%2F{{ project_name }}-blue?logo=github)](https://github.com/{{ gh_owner }}/{{ project_name }})
 [![Read the Docs](https://img.shields.io/readthedocs/{{ project_name }})](https://{{ project_name }}.readthedocs.io)
 
@@ -20,8 +8,39 @@
 
 [![PyPI](https://img.shields.io/pypi/v/{{ project_name }}.svg)](https://pypi.org/project/{{ project_name }}/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/{{ project_name }}.svg)](https://pypi.org/project/{{ project_name }}/)
--->
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-{{description}}
+{{ description }}
+
+```{toctree}
+:maxdepth: 1
+:caption: Getting Started:
+:hidden:
+
+getting_started/installation.md
+getting_started/quickstart.md
+
+```
+
+```{toctree}
+:maxdepth: 1
+:caption: User Guide:
+:hidden:
+```
+
+```{toctree}
+:maxdepth: 1
+:caption: Reference:
+:hidden:
+
+apidocs/index
+```
+
+```{toctree}
+:maxdepth: 1
+:caption: Development:
+:hidden:
+
+development/contributing.md
+```

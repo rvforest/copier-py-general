@@ -1,0 +1,91 @@
+name: Run Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+env:
+  FORCE_COLOR: 1
+
+jobs:
+  run-checks:
+    name: Run checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Run checks
+        run: uv run pre-commit run --all-files --show-diff-on-failure
+
+  run-tests:
+    {%- raw %}
+    name: Run tests (Python ${{ matrix.python-version }})
+    {% endraw -%}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: {{ py_versions }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: wntrblm/nox@main
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        run: uv python install
+
+      - name: Run tests
+      {%- raw %}
+        run: nox -s "coverage-${{ matrix.python-version }}" -- --cov-report=xml -vv
+      {% endraw -%}
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+ 
+  run-doctests:
+    name: Run doctests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: wntrblm/nox@main
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Run doctest
+        run: nox -s doctest -- -vv
+
+  build-check:
+    name: Build, install, and CLI smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Build sdist and wheel
+        run: uv build
+
+      - name: Install built wheel
+        run: |
+          pip install dist/*.whl
+
+{% if has_cli %}
+      - name: CLI smoke test
+        run: |
+          {{ cli_command }} --help
+          {{ cli_command }} --version
+{% endif %}
