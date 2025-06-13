@@ -20,17 +20,17 @@ description:
 gh_owner:
   type: str
   help: Enter the GitHub owner or organization name
-  default: "{{ environ.get('GITHUB_USER', '') }}"
+  default: ""
 
 author:
   type: str
   help: What is the author's name?
-  default: "{{ environ.get('GIT_AUTHOR_NAME', '') }}"
+  default: ""
 
 author_email:
   type: str
   help: What is the author's email address?
-  default: "{{ environ.get('GIT_AUTHOR_EMAIL', '') }}"
+  default: ""
 
 py_max_version:
   type: str
