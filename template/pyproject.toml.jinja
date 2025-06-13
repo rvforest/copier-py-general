@@ -9,14 +9,14 @@ authors = [
 ]
 description = "{{description}}"
 readme = "README.md"
-requires-python = ">={{py_version}}"
+requires-python = ">={{py_min_version}}"
 license = { file = "LICENSE" }
 dynamic = ["version"]
 classifiers = [
     "Programming Language :: Python",
-{% for v in py_versions %}
+{%- for v in py_versions %}
     "Programming Language :: Python :: {{ v }}",
-{% endfor %}
+{% endfor -%}
 ]
 dependencies = [
 {% if has_cli %}    "typer>=0.9.0",
@@ -28,15 +28,15 @@ Documentation = "https://{{ project_name }}.readthedocs.io/"
 Source = "https://github.com/{{ gh_owner }}/{{ project_name }}"
 Issues = "https://github.com/{{ gh_owner }}/{{ project_name }}/issues"
 
+{% if has_cli %}
 [project.scripts]
-{% if has_cli %}{{ cli_command }} = "{{ package_name }}.cli.main:app"
+{{ cli_command }} = "{{ package_name }}.cli.main:app"
 {% endif %}
 
 [dependency-groups]
 dev = [
   "mypy>=1.15.0",
   "nox>=2025.2.9",
-  "pillow>=11.2.1",                # For dynamically generating test jpg files
   "pre-commit>=4.2.0",
   "pytest>=8.3.5",
   "pytest-cov>=6.1.1",
@@ -50,7 +50,6 @@ docs = [
   "sphinx>=7.4.7",
   "sphinx-autobuild>=2024.10.3",
   "sphinx-autodoc2>=0.5.0",
-  "sphinx-jinja>=2.0.2",
 ]
 
 [tool.ruff]
