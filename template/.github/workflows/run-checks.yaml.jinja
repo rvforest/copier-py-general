@@ -47,9 +47,9 @@ jobs:
         run: uv python install
 
       - name: Run tests
-    {%- raw %}
+      {%- raw %}
         run: nox -s "coverage-${{ matrix.python-version }}" -- --cov-report=xml -vv
-    {% endraw -%}
+      {% endraw -%}
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
