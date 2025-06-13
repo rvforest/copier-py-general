@@ -52,9 +52,7 @@ def fix(session: nox.Session) -> None:
 # ==================== TESTS ====================
 
 
-@nox.session(
-    venv_backend="uv", tags=[TEST_TAG], python={{ py_versions }}
-)
+@nox.session(venv_backend="uv", tags=[TEST_TAG], python={{ py_versions }})
 def test(session: nox.Session) -> None:
     """Run tests with pytest across multiple Python versions (3.9-3.13)."""
     _run_install(session)
@@ -89,9 +87,7 @@ def doctest_docs(session: nox.Session) -> None:
     )
 
 
-@nox.session(
-    venv_backend="uv", tags=[TEST_TAG], python={{ py_versions }}
-)
+@nox.session(venv_backend="uv", tags=[TEST_TAG], python={{ py_versions }})
 def coverage(session: nox.Session) -> None:
     """Run tests with coverage reporting."""
     _run_install(session)
@@ -101,7 +97,6 @@ def coverage(session: nox.Session) -> None:
         "--cov-branch",
         *session.posargs,
     )
-
 
 
 # ==================== DOCUMENTATION ====================
