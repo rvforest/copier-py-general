@@ -48,11 +48,22 @@ jobs:
 
       - name: Run tests
       {%- raw %}
-        run: nox -s "coverage-${{ matrix.python-version }}" -- --cov-report=xml -vv
+        run: nox -s "coverage-${{ matrix.python-version }}" -- --cov-report=xml -vv 
+        run: >
+          nox -s "coverage-${{ matrix.python-version }}" \
+            -- \
+            --cov-report=xml \
+            -vv \
+            --junitxml=junit.xml \
+            -o junit_family=legacy
       {% endraw -%}
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
  
   run-doctests:
     name: Run doctests
