@@ -17,6 +17,7 @@
     "fnames",
     "fract",
     "furo",
+    "junitxml",
     "listdir",
     "livedocs",
     "mypy",
