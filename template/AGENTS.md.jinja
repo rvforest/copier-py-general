@@ -59,7 +59,12 @@ The project follows a standard layout:
 
 #### Naming Conventions
 
-TBD
+- **Project name**: kebab-case (lowercase, words separated by `-`), e.g. `my-awesome-package` (`project_name`)
+- **Python package**: snake_case (lowercase, underscores), e.g. `my_awesome_package` (`package_name`)
+- **Module and file names**: snake_case
+- **Class names**: PascalCase
+- **Constants**: UPPER_SNAKE_CASE
+- **CLI commands**: kebab-case
 
 
 ### Testing Standards
@@ -128,6 +133,7 @@ uv run nox -s lint
 - **Spell checking**: Only Markdown files are spell-checked; add technical terms to `cspell.json`
 - **API stability**: Public APIs are stable within major versions (after v1.0)
 - **Backwards compatibility**: Maintain compatibility when making changes to public APIs
+
 
 ## Resources
 
