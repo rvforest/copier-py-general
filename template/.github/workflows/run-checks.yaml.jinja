@@ -48,7 +48,6 @@ jobs:
 
       - name: Run tests
       {%- raw %}
-        run: nox -s "coverage-${{ matrix.python-version }}" -- --cov-report=xml -vv 
         run: >
           nox -s "coverage-${{ matrix.python-version }}" \
             -- \
@@ -62,7 +61,7 @@ jobs:
         uses: codecov/codecov-action@v5
 
       - name: Upload test results to Codecov
-        if: {%- raw %}${{ !cancelled() }}{% endraw -%}
+        if: {% raw %}${{ !cancelled() }}{% endraw %}
         uses: codecov/test-results-action@v1
  
   run-doctests:
