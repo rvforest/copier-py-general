@@ -35,7 +35,7 @@ Issues = "https://github.com/{{ gh_owner }}/{{ project_name }}/issues"
 
 [dependency-groups]
 dev = [
-  "mypy>=1.15.0",
+  "pyrefly>=0.43.1",
   "nox>=2025.2.9",
   "pre-commit>=4.2.0",
   "pytest>=8.3.5",
@@ -58,6 +58,12 @@ exclude = ["tests/*"]
 [tool.ruff.lint]
 per-file-ignores = { "__init__.py" = ["F401"] }
 select = ["T100"]
+
+[tool.pyrefly]
+project-includes = [
+    "**/*.py*",
+    "**/*.ipynb",
+]
 
 [tool.hatch.version]
 source = "versioningit"
