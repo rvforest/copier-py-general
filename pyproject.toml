@@ -1,6 +1,5 @@
 [project]
 name = "general-copier-template"
-version = "0.1.1"
 description = "Add your description here"
 readme = "README.md"
 authors = [
@@ -32,3 +31,7 @@ distance-dirty = "{next_version}.dev{distance}+{vcs}{rev}.d{build_date:%Y%m%d}"
 
 [tool.versioningit.template-fields.version-tuple]
 pep440 = true
+
+[tool.hatch.build.targets.wheel]
+# This repo is a Copier template, not an importable package.
+bypass-selection = true
