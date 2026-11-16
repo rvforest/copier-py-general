@@ -20,6 +20,8 @@ A modern, opinionated [Copier](https://copier.readthedocs.io/) template for Pyth
 - **Current Year Variable**: Auto-generated for copyright.
 - **Initial Git Commit**: On project creation, initializes a git repo and commits only the README for dynamic version lookup.
 - **Customizable Exclusions**: Template files and directories are conditionally included/excluded based on your choices.
+- **Hardened CI**: SHA-pinned GitHub Actions with least-privilege permissions, zizmor, actionlint, and gitleaks pre-commit hooks, and grouped monthly Dependabot updates.
+- **Diff Coverage**: Codecov with a 90% patch target, plus a local pre-push `diff-coverage` check.
 - **Extensible**: Designed for easy extension and customization.
 
 ## Usage
