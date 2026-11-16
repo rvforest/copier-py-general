@@ -11,16 +11,21 @@ on:
 env:
   FORCE_COLOR: 1
 
+permissions:
+  contents: read
+
 jobs:
   run-checks:
     name: Run checks
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
 
       - name: Set up Python
         run: uv python install
@@ -37,11 +42,13 @@ jobs:
       matrix:
         python-version: {{ py_versions }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: wntrblm/nox@main
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: wntrblm/nox@afa3983bbac3143bab5c8406244327581f76a3d7 # 2026.10.20
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
 
       - name: Set up Python
         run: uv python install
@@ -58,21 +65,25 @@ jobs:
       {% endraw -%}
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
 
       - name: Upload test results to Codecov
         if: {% raw %}${{ !cancelled() }}{% endraw %}
-        uses: codecov/test-results-action@v1
- 
+        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        with:
+          report_type: test_results
+
   run-doctests:
     name: Run doctests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: wntrblm/nox@main
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: wntrblm/nox@afa3983bbac3143bab5c8406244327581f76a3d7 # 2026.10.20
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
 
       - name: Run doctest
         run: nox -s doctest -- -vv
@@ -81,10 +92,12 @@ jobs:
     name: Build, install, and CLI smoke test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
 
       - name: Build sdist and wheel
         run: uv build
@@ -92,10 +105,10 @@ jobs:
       - name: Install built wheel
         run: |
           pip install dist/*.whl
+{%- if has_cli %}
 
-{% if has_cli %}
       - name: CLI smoke test
         run: |
           {{ cli_command }} --help
           {{ cli_command }} --version
-{% endif %}
+{%- endif %}
