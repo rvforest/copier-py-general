@@ -38,6 +38,8 @@ uv run pre-commit install
 
 Use `uv run pre-commit run --all-files` to run all hooks locally across the repository.
 
+This installs both the pre-commit and pre-push hooks. On push, the `diff-coverage` hook runs the tests and fails if the lines you changed are under 90% covered compared with `origin/main` (set `DIFF_COVER_COMPARE_BRANCH` to compare against another branch).
+
 ## Development workflow
 
 - Create a feature branch using the scoped naming convention (e.g., `feature/<short-desc>`, `fix/<short-desc>`)
