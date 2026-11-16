@@ -25,7 +25,7 @@ A modern, opinionated [Copier](https://copier.readthedocs.io/) template for Pyth
 ## Usage
 
 ```bash
-copier copy gh:your-org/copier-py-general your-new-project
+copier copy gh:rvforest/copier-py-general your-new-project
 ```
 
 ## Template Questions
@@ -51,7 +51,7 @@ You can easily extend this template by editing `copier.yaml` and the files in th
 
 ## Requirements
 
-- Python 3.9+
+- Python 3.13+
 - [Copier](https://copier.readthedocs.io/)
 
 ## License
