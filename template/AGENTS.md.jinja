@@ -24,7 +24,6 @@ The project follows a standard layout:
 - `docs/` — documentation source and build files
 - `noxfile.py` — nox sessions for running tests, docs, linting, and other tasks
 - `.github/` — CI workflows
-- **Diff coverage** (pre-push): `uv run nox -s diff-coverage` fails if changed lines are under 90% covered (skipped in CI, where Codecov enforces the same patch target)
 - `.pre-commit-config.yaml` — local pre-commit hooks configuration
 
 
@@ -91,6 +90,7 @@ unit or integration tests for verifying core functionality.
 - **Enabled**: Ruff linting/formatting, pyrefly type checking, yaml validation
 - **Spell checking**: cspell for Markdown files only
 - **Security**: gitleaks for credential scanning; zizmor and actionlint for GitHub Actions workflows
+- **Diff coverage** (pre-push): `uv run nox -s diff-coverage` fails if changed lines are under 90% covered (skipped in CI, where Codecov enforces the same patch target)
 - **Setup**: Automatically configured with `uv sync`
 
 #### Continuous Integration
