@@ -112,6 +112,8 @@ uv build
 pip install dist/*.whl
 ```
 
+`.github/dependabot.yml` only schedules monthly version updates, and for Python packages it only refreshes `uv.lock` within the ranges in `pyproject.toml`. Security fixes come from a repository setting instead, so turn on **Dependabot alerts** and **Dependabot security updates** in the repository's Settings > Advanced Security.
+
 ## Releasing a new version
 
 - We use `versioningit` with Hatch to maintain versions. Release using your normal release process (tagging or Github workflows).
