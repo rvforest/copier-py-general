@@ -6,6 +6,10 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    # Only refresh uv.lock within the ranges in pyproject.toml. Packages keep
+    # wide ranges, and raising one (e.g. for a major version) is a deliberate
+    # choice, not something Dependabot should propose.
+    versioning-strategy: lockfile-only
     cooldown:
       default-days: 7
     groups:
