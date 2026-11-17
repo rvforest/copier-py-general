@@ -10,7 +10,8 @@ authors = [
 description = "{{description}}"
 readme = "README.md"
 requires-python = ">={{py_min_version}}"
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE"]
 dynamic = ["version"]
 classifiers = [
     "Programming Language :: Python",
@@ -35,6 +36,7 @@ Issues = "https://github.com/{{ gh_owner }}/{{ project_name }}/issues"
 
 [dependency-groups]
 dev = [
+  "diff-cover>=9.0",
   "pyrefly>=0.43.1",
   "nox>=2025.2.9",
   "pre-commit>=4.2.0",
