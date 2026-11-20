@@ -32,16 +32,31 @@ author_email:
   help: What is the author's email address?
   default: ""
 
-py_max_version:
-  type: str
-  help: What is the maximum Python version for this project? (e.g. 3.13)
-  default: 3.13
-  when: false  # Hide from prompts, but available for templates
-
 py_min_version:
   type: str
-  help: What is the minimum Python version for this project? (e.g. 3.9)
-  default: 3.13
+  help: What is the minimum Python version for this project?
+  default: "3.13"
+  choices:
+    - "3.11"
+    - "3.12"
+    - "3.13"
+    - "3.14"
+    - "3.15"
+
+py_max_version:
+  type: str
+  help: What is the maximum Python version for this project?
+  default: "3.15"
+  choices:
+    - "3.11"
+    - "3.12"
+    - "3.13"
+    - "3.14"
+    - "3.15"
+  validator: >-
+    {% if py_max_version.split('.')[1]|int < py_min_version.split('.')[1]|int %}
+    Maximum Python version must be at least the minimum ({{ py_min_version }}).
+    {% endif %}
 
 py_versions:
   type: yaml

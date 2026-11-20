@@ -36,8 +36,8 @@ copier copy gh:rvforest/copier-py-general your-new-project
 - Description
 - GitHub owner/org (default from `$GITHUB_USER`)
 - Author name/email (default from `$GIT_AUTHOR_NAME`/`$GIT_AUTHOR_EMAIL`)
-- Minimum Python version (default: 3.13)
-- Maximum Python version (hidden, default: 3.13)
+- Minimum Python version (choices 3.11–3.15, default: 3.13)
+- Maximum Python version (choices 3.11–3.15, default: 3.15)
 - CLI support (yes/no)
   - If yes: CLI command name (default: project name)
 
