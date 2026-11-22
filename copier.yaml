@@ -34,11 +34,11 @@ author_email:
 
 py_min_version:
   type: str
-  help: Minimum Python version for this project (3.x, at least 3.11). Sets requires-python to >= this version, with no upper cap.
-  default: "3.13"
+  help: Minimum Python version for this project (3.x, at least 3.11). Sets requires-python to >= this version, with no upper cap. Default is 3.11, the oldest CPython still receiving security fixes. Answer a higher minimum if you want newer language features.
+  default: "3.11"
   validator: >-
     {% if not (py_min_version | regex_search('^3[.][0-9]+$')) %}
-    Minimum Python version must be of the form 3.x, where x is an integer of at least 11 (e.g. 3.13).
+    Minimum Python version must be of the form 3.x, where x is an integer of at least 11 (e.g. 3.11).
     {% elif py_min_version.split('.')[1]|int < 11 %}
     Minimum Python version must be 3.11 or higher.
     {% endif %}

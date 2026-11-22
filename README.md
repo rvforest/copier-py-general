@@ -36,7 +36,7 @@ copier copy gh:rvforest/copier-py-general your-new-project
 - Description
 - GitHub owner/org (default from `$GITHUB_USER`)
 - Author name/email (default from `$GIT_AUTHOR_NAME`/`$GIT_AUTHOR_EMAIL`)
-- Minimum Python version (free-text `3.x`, at least 3.11, default: 3.13). Sets `requires-python` to `>=` this version, with no upper cap.
+- Minimum Python version (free-text `3.x`, at least 3.11, default: 3.11, the oldest CPython still receiving security fixes). Sets `requires-python` to `>=` this version, with no upper cap. Answer a higher minimum to use newer language features.
 - Maximum Python version (free-text `3.x`, default: 3.15). This is the newest version tested in CI and nox, and the version written to `.python-version`. It is not a package cap. After a new Python release, bump a project's test range with `copier update --data py_max_version=3.16`.
 - CLI support (yes/no)
   - If yes: CLI command name (default: project name)
