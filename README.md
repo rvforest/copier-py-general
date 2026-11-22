@@ -7,8 +7,8 @@ A modern, opinionated [Copier](https://copier.readthedocs.io/) template for Pyth
 - **Project Naming & Validation**: Enforces lowercase, dash-separated project names starting with a letter.
 - **Auto-generated Package Name**: Converts dashes to underscores for Python package naming.
 - **Python Version Management**:
-  - Prompts for minimum and maximum Python versions.
-  - Auto-generates a list of supported Python versions.
+  - Prompts for the minimum Python version (`requires-python`) and the newest version to test in CI and nox (also used for `.python-version`). The test max is not a package cap.
+  - Auto-generates a list of supported Python versions for classifiers, nox, and CI.
 - **Metadata Prompts**:
   - Project description
   - GitHub owner/organization (defaults from environment)
@@ -36,8 +36,8 @@ copier copy gh:rvforest/copier-py-general your-new-project
 - Description
 - GitHub owner/org (default from `$GITHUB_USER`)
 - Author name/email (default from `$GIT_AUTHOR_NAME`/`$GIT_AUTHOR_EMAIL`)
-- Minimum Python version (default: 3.13)
-- Maximum Python version (hidden, default: 3.13)
+- Minimum Python version (free-text `3.x`, at least 3.11, default: 3.11, the oldest CPython still receiving security fixes). Sets `requires-python` to `>=` this version, with no upper cap. Answer a higher minimum to use newer language features.
+- Maximum Python version (free-text `3.x`, default: 3.15). This is the newest version tested in CI and nox, and the version written to `.python-version`. It is not a package cap. After a new Python release, bump a project's test range with `copier update --data py_max_version=3.16`.
 - CLI support (yes/no)
   - If yes: CLI command name (default: project name)
 
