@@ -34,27 +34,23 @@ author_email:
 
 py_min_version:
   type: str
-  help: What is the minimum Python version for this project?
+  help: Minimum Python version for this project (3.x, at least 3.11). Sets requires-python to >= this version, with no upper cap.
   default: "3.13"
-  choices:
-    - "3.11"
-    - "3.12"
-    - "3.13"
-    - "3.14"
-    - "3.15"
+  validator: >-
+    {% if not (py_min_version | regex_search('^3[.][0-9]+$')) %}
+    Minimum Python version must be of the form 3.x, where x is an integer of at least 11 (e.g. 3.13).
+    {% elif py_min_version.split('.')[1]|int < 11 %}
+    Minimum Python version must be 3.11 or higher.
+    {% endif %}
 
 py_max_version:
   type: str
-  help: What is the maximum Python version for this project?
+  help: Newest Python version to test in CI and nox, and to use for .python-version. This is not a package cap; requires-python stays >= the minimum. To bump later, run `copier update --data py_max_version=3.16`.
   default: "3.15"
-  choices:
-    - "3.11"
-    - "3.12"
-    - "3.13"
-    - "3.14"
-    - "3.15"
   validator: >-
-    {% if py_max_version.split('.')[1]|int < py_min_version.split('.')[1]|int %}
+    {% if not (py_max_version | regex_search('^3[.][0-9]+$')) %}
+    Maximum Python version must be of the form 3.x, where x is an integer (e.g. 3.15). There is no upper limit.
+    {% elif py_min_version | regex_search('^3[.][0-9]+$') and py_max_version.split('.')[1]|int < py_min_version.split('.')[1]|int %}
     Maximum Python version must be at least the minimum ({{ py_min_version }}).
     {% endif %}
 
