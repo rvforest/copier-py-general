@@ -69,6 +69,20 @@ Use exact version tags such as `actions/checkout@v7.0.1`, not `@v7`. Review the 
 - Python 3.13+
 - [Copier](https://copier.readthedocs.io/)
 
+## Testing the template
+
+These tests render the template with Copier's Python API and check that the
+result is valid. Fast tests (the default) cover a defaults render without
+post-copy tasks, question validators, and a `copier update` round-trip. Slow
+tests run the post-copy tasks, then `pre-commit` and nox in a generated
+project; they need `git` and `uv`.
+
+```bash
+uv sync --group test
+uv run pytest              # fast subset
+uv run pytest --run-slow   # full suite, including slow tests
+```
+
 ## License
 
 MIT
