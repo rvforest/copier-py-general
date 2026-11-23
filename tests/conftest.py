@@ -24,6 +24,7 @@ BASE_DATA: dict[str, Any] = {
 # Files that every successful defaults render should produce.
 KEY_FILES = (
     ".copier-answers.yml",
+    ".github/labels.yml",
     ".github/workflows/run-checks.yaml",
     ".pre-commit-config.yaml",
     ".python-version",
