@@ -64,19 +64,34 @@ def pytest_collection_modifyitems(
 
 
 @pytest.fixture(autouse=True)
-def git_identity(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Give git a name/email so post-copy commit tasks can succeed."""
-    monkeypatch.setenv("GIT_AUTHOR_NAME", "Template Tests")
-    monkeypatch.setenv("GIT_AUTHOR_EMAIL", "tests@example.com")
-    monkeypatch.setenv("GIT_COMMITTER_NAME", "Template Tests")
-    monkeypatch.setenv("GIT_COMMITTER_EMAIL", "tests@example.com")
-    monkeypatch.setenv("GIT_CONFIG_GLOBAL", "/dev/null")
-    monkeypatch.setenv("GIT_CONFIG_SYSTEM", "/dev/null")
-    monkeypatch.setenv("GIT_CONFIG_COUNT", "2")
-    monkeypatch.setenv("GIT_CONFIG_KEY_0", "user.name")
-    monkeypatch.setenv("GIT_CONFIG_VALUE_0", "Template Tests")
-    monkeypatch.setenv("GIT_CONFIG_KEY_1", "user.email")
-    monkeypatch.setenv("GIT_CONFIG_VALUE_1", "tests@example.com")
+def git_identity(
+    monkeypatch: pytest.MonkeyPatch, tmp_path_factory: pytest.TempPathFactory
+) -> None:
+    """Give git a name/email so post-copy commit tasks can succeed.
+
+    Isolated from the developer or CI runner identity, and from global git
+    config (including commit-signing settings). Copier runs tasks with
+    ``plumbum.local.env``, a snapshot of ``os.environ`` at import time, so
+    that snapshot is updated as well as the process environment.
+    """
+    name = "Template Tests"
+    email = "tests@example.invalid"
+    config_file = tmp_path_factory.mktemp("git-config") / "gitconfig"
+    config_file.write_text(f"[user]\n\tname = {name}\n\temail = {email}\n")
+    env = {
+        "GIT_AUTHOR_NAME": name,
+        "GIT_AUTHOR_EMAIL": email,
+        "GIT_COMMITTER_NAME": name,
+        "GIT_COMMITTER_EMAIL": email,
+        "GIT_CONFIG_GLOBAL": str(config_file),
+        "GIT_CONFIG_NOSYSTEM": "1",
+    }
+    for key, value in env.items():
+        monkeypatch.setenv(key, value)
+    # See fixture docstring: monkeypatch alone does not reach Copier tasks.
+    from plumbum import local
+
+    local.env.update(env)
 
 
 def render(
