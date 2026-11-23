@@ -37,6 +37,14 @@ from tests.conftest import load_answers, render
             "must be of the form 3.x",
         ),
     ],
+    ids=[
+        "min-3.x",
+        "min-4.0",
+        "min-3.10",
+        "max-less-than-min",
+        "max-3.x",
+        "max-4.0",
+    ],
 )
 def test_python_version_validators_reject(
     tmp_path: Path, data: dict[str, str], match: str
