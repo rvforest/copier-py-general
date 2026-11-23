@@ -35,3 +35,22 @@ pep440 = true
 [tool.hatch.build.targets.wheel]
 # This repo is a Copier template, not an importable package.
 bypass-selection = true
+
+[dependency-groups]
+test = [
+    "copier>=9.19",
+    "pytest>=8.3",
+    "pyyaml>=6.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "slow: generated-project checks that need git, uv, pre-commit, and nox; skipped unless --run-slow is given",
+]
+filterwarnings = [
+    "ignore:'now' will be removed in a future release of Copier:FutureWarning",
+]

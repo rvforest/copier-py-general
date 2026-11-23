@@ -1,0 +1,50 @@
+"""Render the template with defaults and without post-copy tasks."""
+
+from __future__ import annotations
+
+import re
+from pathlib import Path
+
+from tests.conftest import KEY_FILES, load_answers, render
+
+# GitHub Actions expressions use ${{ ... }}; leftover Copier Jinja does not.
+_JINJA_RE = re.compile(r"(?<!\$)\{\{|\{%|\{#")
+_SKIP_SUFFIXES = {".png", ".jpg", ".jpeg", ".gif", ".ico", ".woff", ".woff2"}
+
+
+def _iter_text_files(root: Path):
+    for path in root.rglob("*"):
+        if not path.is_file():
+            continue
+        if ".git" in path.parts:
+            continue
+        if path.suffix.lower() in _SKIP_SUFFIXES:
+            continue
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue
+        yield path, text
+
+
+def test_render_defaults_skip_tasks(tmp_path: Path) -> None:
+    project = render(tmp_path / "project", skip_tasks=True)
+
+    missing = [name for name in KEY_FILES if not (project / name).is_file()]
+    assert missing == [], f"missing rendered files: {missing}"
+
+    answers = load_answers(project)
+    assert answers["project_name"] == "demo-project"
+    assert answers["py_min_version"] == "3.11"
+    assert answers["py_max_version"] == "3.15"
+    assert answers["has_cli"] is False
+    assert not (project / "src/demo_project/cli").exists()
+
+    leftovers = []
+    for path, text in _iter_text_files(project):
+        for lineno, line in enumerate(text.splitlines(), 1):
+            if _JINJA_RE.search(line):
+                leftovers.append(f"{path.relative_to(project)}:{lineno}: {line.strip()}")
+    assert leftovers == [], "leftover Jinja in rendered project:\n" + "\n".join(
+        leftovers
+    )
