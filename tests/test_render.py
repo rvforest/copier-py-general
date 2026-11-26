@@ -48,3 +48,14 @@ def test_render_defaults_skip_tasks(tmp_path: Path) -> None:
     assert leftovers == [], "leftover Jinja in rendered project:\n" + "\n".join(
         leftovers
     )
+
+    agents = (project / "AGENTS.md").read_text()
+    assert answers["description"] in agents
+    assert "AI generated commit messages" not in agents
+    conf = (project / "docs/source/conf.py").read_text()
+    assert f'author = "{answers["author"]}"' in conf
+    index = (project / "docs/source/index.md").read_text()
+    assert "development/development_guide.md" in index
+    guide = (project / "docs/source/development/development_guide.md").read_text()
+    assert "run-checks.yaml.jinja" not in guide
+    assert "pyproject.toml.jinja" not in guide
