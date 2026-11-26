@@ -51,6 +51,3 @@ testpaths = ["tests"]
 markers = [
     "slow: generated-project checks that need git, uv, pre-commit, and nox; skipped unless --run-slow is given",
 ]
-filterwarnings = [
-    "ignore:'now' will be removed in a future release of Copier:FutureWarning",
-]
