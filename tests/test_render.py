@@ -74,3 +74,18 @@ def test_render_defaults_emit_no_copier_warnings(tmp_path: Path) -> None:
         f"{w.category.__name__}: {w.message}\n" for w in interesting
     )
 
+
+def test_render_python_classifiers_have_no_blank_lines(tmp_path: Path) -> None:
+    pyproject = (render(tmp_path / "project", skip_tasks=True) / "pyproject.toml").read_text()
+    expected = """
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+]
+"""
+    assert expected.strip() in pyproject
+

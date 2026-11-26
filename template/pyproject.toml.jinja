@@ -17,7 +17,7 @@ classifiers = [
     "Programming Language :: Python",
 {%- for v in py_versions %}
     "Programming Language :: Python :: {{ v }}",
-{% endfor -%}
+{%- endfor %}
 ]
 dependencies = [
 {% if has_cli %}    "typer>=0.9.0",
