@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+import warnings
 from pathlib import Path
 
 from tests.conftest import KEY_FILES, load_answers, render
@@ -59,3 +60,17 @@ def test_render_defaults_skip_tasks(tmp_path: Path) -> None:
     guide = (project / "docs/source/development/development_guide.md").read_text()
     assert "run-checks.yaml.jinja" not in guide
     assert "pyproject.toml.jinja" not in guide
+
+
+def test_render_defaults_emit_no_copier_warnings(tmp_path: Path) -> None:
+    """The template should not use Copier's deprecated now() or invalid escapes."""
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        render(tmp_path / "project", skip_tasks=True)
+    interesting = [
+        w for w in caught if issubclass(w.category, (DeprecationWarning, FutureWarning))
+    ]
+    assert interesting == [], "".join(
+        f"{w.category.__name__}: {w.message}\n" for w in interesting
+    )
+

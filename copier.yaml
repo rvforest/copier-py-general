@@ -3,7 +3,7 @@ project_name:
   type: str
   help: What is your project name?
   validator: >-
-    {% if not (project_name | regex_search('^[a-z][a-z0-9\-]+$')) %}
+    {% if not (project_name | regex_search('^[a-z][a-z0-9-]+$')) %}
     project_name must start with a letter, followed one or more letters, digits or dashes all lowercase.
     {% endif %}
 
@@ -77,7 +77,7 @@ cli_command:
 current_year:
   type: str
   help: Current year (auto-generated)
-  default: "{{ now().strftime('%Y') }}"
+  default: "{{ '%Y' | strftime }}"
   when: false  # Hide from prompts, but available for templates
 
 _subdirectory: template
